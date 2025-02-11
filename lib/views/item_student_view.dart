@@ -9,7 +9,8 @@ class ItemStudentView extends StatelessWidget {
       height: 200,
       //width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Colors.grey,
+        //color: Colors.grey,
+        border: Border.all(color: Color(0xFF006BDB)),
         borderRadius: BorderRadius.circular(10)
       ),
       child: Column(
@@ -26,14 +27,42 @@ class ItemStudentView extends StatelessWidget {
           ),
           Container(
             height:MediaQuery.of(context).size.height * .16,
-            
             decoration: BoxDecoration(
-              color:Colors.amber,
+              color:Color(0xFFEDF3FF),
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(8),
                 bottomRight: Radius.circular(8)
                 )
-
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  Table(
+                    children:[
+                    TableRow(
+                      children: [
+                        Center(child: Text('Semestre',style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF006BDB)))),
+                        Center(child: Text('Clave Materia',style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF006BDB)))),
+                        Center(child: Text('Grupo',style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFF006BDB))))
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        Center(child: Text('9')),
+                        Center(child: Text('M10')),
+                        Center(child: Text('A'))
+                      ],
+                    ),
+                    ]
+                  ),
+                  SizedBox(height: 16,),
+                  Text('INGENIERIA EN SISTEMAS COMPUTACIONALES',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  
+                  )
+                ],
+              ),
             ),
           )
          ],
