@@ -1,5 +1,6 @@
 import 'package:dark_light_button/dark_light_button.dart';
 import 'package:demo1/utils/global_values.dart';
+import 'package:demo1/utils/theme_settings.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -12,8 +13,15 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("HOLA SECCION DOS"),
         actions: [
-            DarlightButton(onChange: (value){
-              GlobalValues.themeApp.value = value;
+            DarlightButton(
+              type: Darlights.DarlightFour,
+              options: DarlightFourOption(),
+              onChange: (value){
+                if (value== ThemeMode.light){
+                  GlobalValues.themeApp.value = ThemeSettings.lightTheme();
+                }else{
+                  GlobalValues.themeApp.value = ThemeData.dark();
+                }
             })
         ],
       ),
