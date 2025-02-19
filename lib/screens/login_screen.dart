@@ -1,4 +1,3 @@
-import 'package:demo1/screens/list_students_screen.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -81,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       GlobalValues.isValidating.value=true;
                       Future.delayed(Duration(milliseconds: 4000)).then((onValue){
                       GlobalValues.isValidating.value=false;
-                      Navigator.pushNamed(context, "/list");
+                      Navigator.pushNamed(context, "/dash");
                       },);
                       },
                     child: Image.asset("assets/boton.png",
