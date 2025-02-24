@@ -1,4 +1,5 @@
 import 'package:demo1/screens/list_product_screen.dart';
+import 'package:demo1/screens/login_food_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -18,7 +19,9 @@ class _SplashFoodScreenState extends State<SplashFoodScreen> {
     Future.delayed(const Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ListProductScreen()),
+        MaterialPageRoute(builder: (context) => 
+        const LoginFoodScreen()
+        ),
       );
     });
   }

@@ -22,8 +22,9 @@ class MyApp extends StatelessWidget {
           title: 'Material App',
           home: SplashFoodScreen(),
           routes: {
-            "/list": (context) => const ListProductScreen(),
+            "/list": (context) => const ListStudentScreen(),
             "/dash": (context) => const DashboardScreen(),
+            "/listProduct":(context)=> const ListProductScreen()
           },
           //theme: ThemeData.dark(),
         );
