@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       GlobalValues.isValidating.value=true;
                       Future.delayed(Duration(milliseconds: 4000)).then((onValue){
                       GlobalValues.isValidating.value=false;
-                      Navigator.pushNamed(context, "/dash");
+                      Navigator.pushNamed(context, "/list");
                       },);
                       },
                     child: Image.asset("assets/boton.png",

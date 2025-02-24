@@ -1,5 +1,7 @@
 import 'package:demo1/screens/dashboard_screen.dart';
+import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
+import 'package:demo1/screens/splash_food_screen.dart';
 import 'package:demo1/screens/splash_screen.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +20,9 @@ class MyApp extends StatelessWidget {
           theme: value,
           debugShowCheckedModeBanner: false,
           title: 'Material App',
-          home: SplashScreen(),
+          home: SplashFoodScreen(),
           routes: {
-            "/list": (context) => const ListStudentScreen(),
+            "/list": (context) => const ListProductScreen(),
             "/dash": (context) => const DashboardScreen(),
           },
           //theme: ThemeData.dark(),

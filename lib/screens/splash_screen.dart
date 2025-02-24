@@ -11,11 +11,11 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterSplashScreen(
-        duration: const Duration(milliseconds: 2000),
-        nextScreen:LoginScreen(),
+        duration: const Duration(milliseconds: 4000),
+        nextScreen:LoginScreen(),//proxima pantalla a mostrar despues de la animacion de "carga de la app"
         backgroundColor: Colors.white,
         splashScreenBody: Center(
-            child: Lottie.asset("assets/tecnm2.json", height: 200)
+            child: Center(child: Lottie.asset("assets/tecnm2.json", height: 300))
           ),
       ),
     );
