@@ -39,6 +39,13 @@ class DashboardScreen extends StatelessWidget {
               title: Text('Practica Figma'),
               subtitle: Text('Frontend App'),
               trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              onTap: ()=> Navigator.pushNamed(context, "/todo"),
+              leading: Icon(Icons.design_services),
+              title: Text('Todo App'),
+              subtitle: Text('Task List'),
+              trailing: Icon(Icons.chevron_right),
             )
           ],
         ),

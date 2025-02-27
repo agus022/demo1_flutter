@@ -1,8 +1,10 @@
 import 'package:demo1/screens/dashboard_screen.dart';
+import 'package:demo1/screens/details_product_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
 import 'package:demo1/screens/splash_food_screen.dart';
 import 'package:demo1/screens/splash_screen.dart';
+import 'package:demo1/screens/todo_screen.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
           routes: {
             "/list": (context) => const ListStudentScreen(),
             "/dash": (context) => const DashboardScreen(),
-            "/listProduct":(context)=> const ListProductScreen()
+            "/listProduct":(context)=> const ListProductScreen(),
+            "/product":(context)=> const DetailsProductScreen(),
+            "/todo":(context)=> const TodoScreen(),
           },
           //theme: ThemeData.dark(),
         );
