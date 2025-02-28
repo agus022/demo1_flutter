@@ -42,7 +42,7 @@ dependencies:
   theme_button: ^1.0.4
   another_flutter_splash_screen: ^1.0.3
   lottie: ^2.6.0
-  flutter_rating_bar: ^4.0.1
+  adaptive_action_sheet: ^2.0.4
 
 dev_dependencies:
   flutter_test:

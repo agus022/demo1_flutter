@@ -17,9 +17,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: GestureDetector(
-        onTap:  (){        contador ++;
+        onTap:  (){        
+          contador ++;
             print(contador);
-            setState(() {});}, 
+            setState(() {});
+        }, 
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.purpleAccent,
