@@ -1,5 +1,6 @@
 import 'package:demo1/database/task.database.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -11,11 +12,17 @@ class TodoScreen extends StatefulWidget {
 class _TodoScreenState extends State<TodoScreen> {
 
   TaskDatabase? database;
-  void initState(){
+  TextEditingController conTitle = TextEditingController();
+  TextEditingController conDesc = TextEditingController();
+  TextEditingController conDate = TextEditingController();
+  TextEditingController conStatus = TextEditingController();
 
-  }
 
   @override
+    void initState(){
+    super.initState();
+    database = TaskDatabase();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('ToDo List'),),
@@ -70,6 +77,48 @@ class _TodoScreenState extends State<TodoScreen> {
       builder: (context){
         return AlertDialog(
           title: Text('Add Task'),
+          content: Container(
+            height: 150,
+            width: 200,
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                TextFormField(
+                  controller: conTitle,
+                  decoration: InputDecoration(hintText: 'Titulo de la tarea '),
+                ),
+                TextFormField(
+                  controller: conDesc,
+                  maxLines: 3,
+                  decoration: InputDecoration(hintText: 'Descripcion de la tarea '),
+                ),
+                TextFormField(
+                  controller: conDate,
+                  decoration: InputDecoration(hintText: 'Fecha de la tarea'),
+                  onTap: () async{
+                    DateTime? dateTodo = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(), 
+                      firstDate: DateTime(2000), 
+                      lastDate: DateTime(2036)
+                    );
+                    if (dateTodo != null) {
+                      String formattedDate = DateFormat('yyy-MM-dd').format(dateTodo);
+                      setState(() {
+                        conDate.text = formattedDate;
+                      });
+                    }
+                  },
+                  
+                ),
+                TextFormField(
+                  controller: conStatus,
+                  decoration: InputDecoration(hintText: 'Estatus de la tarea '),
+                ),
+            
+              ],
+            ),
+          ),
         );
       }
     );

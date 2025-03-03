@@ -19,7 +19,9 @@ class MyApp extends StatelessWidget {
       valueListenable: GlobalValues.themeApp,
       builder: (context,value,child) {
         return MaterialApp(
-          theme: value,
+          theme: ThemeData(
+            fontFamily: 'Sen'
+          ),
           debugShowCheckedModeBanner: false,
           title: 'Material App',
           home: SplashFoodScreen(),

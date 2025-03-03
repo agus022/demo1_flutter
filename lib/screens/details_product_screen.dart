@@ -1,4 +1,5 @@
 import 'package:adaptive_action_sheet/adaptive_action_sheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailsProductScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _DetailsProductScreenState extends State<DetailsProductScreen> {
                   left: 20,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.arrow_back_ios_new_rounded,size: 15,),
+                    child: Icon(CupertinoIcons.back,size: 15,),
                     //AGREGAR FUNCIONN PARA REGRESAR ATRAS 
                 )
                 ),
@@ -44,7 +45,7 @@ class _DetailsProductScreenState extends State<DetailsProductScreen> {
                   child: CircleAvatar(
                     
                     backgroundColor: Colors.white,
-                    child: Icon(Icons.favorite,color: Color(0xFFFF8400),size: 15,),
+                    child: Icon(CupertinoIcons.heart_solid,color: Color(0xFFFF8400),size: 15,),
                   )
                 ),  
               ],
