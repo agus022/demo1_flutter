@@ -1,3 +1,4 @@
+import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:demo1/database/task.database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,15 +12,16 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
 
-  TaskDatabase? database;
+  late TaskDatabase? database; 
   TextEditingController conTitle = TextEditingController();
   TextEditingController conDesc = TextEditingController();
   TextEditingController conDate = TextEditingController();
   TextEditingController conStatus = TextEditingController();
 
 
+
   @override
-    void initState(){
+  void initState(){
     super.initState();
     database = TaskDatabase();
   }
@@ -115,7 +117,31 @@ class _TodoScreenState extends State<TodoScreen> {
                   controller: conStatus,
                   decoration: InputDecoration(hintText: 'Estatus de la tarea '),
                 ),
-            
+                Divider(),
+                ElevatedButton(
+                  onPressed: (){
+                    database!.INSERTAR(
+                      "todo", 
+                      {
+                        'titleTodo' :conTitle.text,
+                        'dscTodo' :conDesc.text,
+                        'dateTodo' :conDate.text,
+                        'statusTodo' :conStatus.text.toLowerCase() == "true"  ? 1:0
+                      }
+                    ).then((value) {
+                      if(value > 0){
+                        ArtSweetAlert.show(
+                          context: context, 
+                          artDialogArgs: ArtDialogArgs(
+                            type: ArtSweetAlertType.success,
+                            title: 'CORRECT :)',
+                            text: 'La terea se registro correctamente'
+                          )
+                        );
+                      }
+                    },);
+                  }, 
+                  child: Text('Guardar'))
               ],
             ),
           ),

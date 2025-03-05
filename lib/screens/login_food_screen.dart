@@ -84,79 +84,81 @@ class _LoginFoodScreenState extends State<LoginFoodScreen> {
                     borderRadius:
                     BorderRadius.vertical(top: Radius.circular(30))
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('EMAIL',style: TextStyle(fontSize: 15, color: Color(0xFF32343E))),
-                      SizedBox(height: 10),
-                      txtUser,
-                      SizedBox(height: 30),
-                      Text('PASSWORD',style: TextStyle(fontSize: 15,color: Color(0xFF32343E))),
-                      SizedBox(height: 10),
-                      txtPassword,
-                      SizedBox(height: 16,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Checkbox(value: false, onChanged: (value){}),
-                              Text('Remember me')
-                            ],
-                          ),
-                          Text('Forgot Password',style: TextStyle(color: Color(0xFFFF7622)),),
-                          
-                        ],
-                      ),
-                      SizedBox(height: 16,),
-                        ElevatedButton(
-                          onPressed: (){
-                          GlobalValues.isValidating.value=true;
-                          Future.delayed(Duration(milliseconds: 1000)).then((onValue){
-                          GlobalValues.isValidating.value=false;
-                          Navigator.pushNamed(context, "/listProduct");
-                          },);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFFF7622),
-                            minimumSize: Size(double.infinity,70),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                            )
-                          ), 
-                          child: Text('LOG IN', style: TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 15),)
-                        ),
-                        SizedBox(height: 10,),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('EMAIL',style: TextStyle(fontSize: 15, color: Color(0xFF32343E))),
+                        SizedBox(height: 10),
+                        txtUser,
+                        SizedBox(height: 30),
+                        Text('PASSWORD',style: TextStyle(fontSize: 15,color: Color(0xFF32343E))),
+                        SizedBox(height: 10),
+                        txtPassword,
+                        SizedBox(height: 16,),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Don't have an account?", style: TextStyle(color: Color(0xFF646982)),),
-                            SizedBox(width: 15,),
-                            Text('SIGN UP' ,style:TextStyle(color:Color(0xFFFF7622), fontWeight: FontWeight.bold),)
-                          ],
-                        ),
-                        SizedBox(height: 35,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('Or', style: TextStyle(fontSize: 15,color: Color(0xFF646982)),)
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(icon: FaIcon(FontAwesomeIcons.facebook,color: Color(0xFF395998),size: 50,), onPressed: () {  },),
-                            SizedBox(width: 15,),
-                            IconButton(icon: FaIcon(FontAwesomeIcons.twitter,color: Color(0xFF169CE8),size: 50,), onPressed: () {  },),
-                            SizedBox(width: 15,),
-                            IconButton(icon: FaIcon(FontAwesomeIcons.apple,color: Color(0xFF1B1F2F),size: 50,), onPressed: () {  },)
+                            Row(
+                              children: [
+                                Checkbox(value: false, onChanged: (value){}),
+                                Text('Remember me')
+                              ],
+                            ),
+                            Text('Forgot Password',style: TextStyle(color: Color(0xFFFF7622)),),
                             
                           ],
-                        )
-
-
-                    ],
+                        ),
+                        SizedBox(height: 16,),
+                          ElevatedButton(
+                            onPressed: (){
+                            GlobalValues.isValidating.value=true;
+                            Future.delayed(Duration(milliseconds: 1000)).then((onValue){
+                            GlobalValues.isValidating.value=false;
+                            Navigator.pushNamed(context, "/listProduct");
+                            },);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFFFF7622),
+                              minimumSize: Size(double.infinity,70),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                              )
+                            ), 
+                            child: Text('LOG IN', style: TextStyle(color: Colors.white, fontWeight:FontWeight.bold, fontSize: 15),)
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Don't have an account?", style: TextStyle(color: Color(0xFF646982)),),
+                              SizedBox(width: 15,),
+                              Text('SIGN UP' ,style:TextStyle(color:Color(0xFFFF7622), fontWeight: FontWeight.bold),)
+                            ],
+                          ),
+                          SizedBox(height: 35,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Or', style: TextStyle(fontSize: 15,color: Color(0xFF646982)),)
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(icon: FaIcon(FontAwesomeIcons.facebook,color: Color(0xFF395998),size: 50,), onPressed: () {  },),
+                              SizedBox(width: 15,),
+                              IconButton(icon: FaIcon(FontAwesomeIcons.twitter,color: Color(0xFF169CE8),size: 50,), onPressed: () {  },),
+                              SizedBox(width: 15,),
+                              IconButton(icon: FaIcon(FontAwesomeIcons.apple,color: Color(0xFF1B1F2F),size: 50,), onPressed: () {  },)
+                              
+                            ],
+                          )
+                    
+                    
+                      ],
+                    ),
                   )
                 )
                     

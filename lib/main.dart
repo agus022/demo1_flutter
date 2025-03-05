@@ -2,6 +2,8 @@ import 'package:demo1/screens/dashboard_screen.dart';
 import 'package:demo1/screens/details_product_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
+import 'package:demo1/screens/login_screen.dart';
+import 'package:demo1/screens/signup_screen.dart';
 import 'package:demo1/screens/splash_food_screen.dart';
 import 'package:demo1/screens/splash_screen.dart';
 import 'package:demo1/screens/todo_screen.dart';
@@ -24,13 +26,15 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           title: 'Material App',
-          home: SplashFoodScreen(),
+          home: SplashScreen(),
           routes: {
             "/list": (context) => const ListStudentScreen(),
             "/dash": (context) => const DashboardScreen(),
             "/listProduct":(context)=> const ListProductScreen(),
             "/product":(context)=> const DetailsProductScreen(),
             "/todo":(context)=> const TodoScreen(),
+            "/signup":(context)=> const SignupScreen(),
+            "/login":(context)=>const LoginScreen()
           },
           //theme: ThemeData.dark(),
         );
