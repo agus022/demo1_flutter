@@ -19,18 +19,18 @@ class DashboardScreen extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text("DashBoard - Agus"),
+        title: Text("DashBoard"),
         actions: [
-            DarlightButton(
-              type: Darlights.DarlightFour,
-              options: DarlightFourOption(),
-              onChange: (value){
-                if (value== ThemeMode.light){
-                  GlobalValues.themeApp.value = ThemeSettings.lightTheme();
-                }else{
-                  GlobalValues.themeApp.value = ThemeData.dark();
-                }
-            })
+            // DarlightButton(
+            //   type: Darlights.DarlightFour,
+            //   options: DarlightFourOption(),
+            //   onChange: (value){
+            //     if (value== ThemeMode.light){
+            //       GlobalValues.themeApp.value = ThemeSettings.lightTheme();
+            //     }else{
+            //       GlobalValues.themeApp.value = ThemeData.dark();
+            //     }
+            // })
         ],
       ),
       drawer: Drawer(
@@ -43,16 +43,23 @@ class DashboardScreen extends StatelessWidget {
             ),
             ListTile(
               onTap: ()=> Navigator.pushNamed(context, "/listProduct"),
-              leading: Icon(Icons.design_services),
-              title: Text('Practica Figma'),
+              leading: Icon(Icons.fastfood),
+              title: Text('Figma Challenge'),
               subtitle: Text('Frontend App'),
               trailing: Icon(Icons.chevron_right),
             ),
             ListTile(
               onTap: ()=> Navigator.pushNamed(context, "/todo"),
-              leading: Icon(Icons.design_services),
+              leading: Icon(Icons.design_services_rounded),
               title: Text('Todo App'),
               subtitle: Text('Task List'),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
+              onTap: ()=> Navigator.pushNamed(context, "/setting"),
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              subtitle: Text('Customize your application',style: TextStyle(fontSize: 13),),
               trailing: Icon(Icons.chevron_right),
             ),
             Divider(),

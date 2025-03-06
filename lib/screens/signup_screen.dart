@@ -145,16 +145,16 @@ class _SignupScreenState extends State<SignupScreen> {
                         Row(
                           children: [
                             Text('Seleccionar foto de tu galeria:',style: TextStyle(color: Color(0xFF32343E))),
-                            
-                            ElevatedButton(
-                              onPressed: pickImage,
+                            SizedBox(width: 5,),
+                            IconButton(
+                              //label: Text('Seleccionar',style: TextStyle(fontSize: 10),),
+                              icon: Icon(Icons.photo_camera_back,size: 30,),
                               style: ElevatedButton.styleFrom(
-                              //fixedSize: Size(150, 20),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)
-                              )
+                              backgroundColor: Colors.white,
+                              minimumSize: Size(10,10),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20),), 
                             ), 
-                              child: Text('Seleccionar')
+                              onPressed: pickImage,
                             ),
                           ],
                         ),

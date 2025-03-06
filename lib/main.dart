@@ -3,6 +3,7 @@ import 'package:demo1/screens/details_product_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
 import 'package:demo1/screens/login_screen.dart';
+import 'package:demo1/screens/setting_screen.dart';
 import 'package:demo1/screens/signup_screen.dart';
 import 'package:demo1/screens/splash_food_screen.dart';
 import 'package:demo1/screens/splash_screen.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
             "/product":(context)=> const DetailsProductScreen(),
             "/todo":(context)=> const TodoScreen(),
             "/signup":(context)=> const SignupScreen(),
-            "/login":(context)=>const LoginScreen()
+            "/login":(context)=>const LoginScreen(),
+            "/setting":(context)=>const SettingScreen()
           },
           //theme: ThemeData.dark(),
         );

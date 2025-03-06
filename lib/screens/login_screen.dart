@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
     //guarda la sesion con SharedPreferences lo cual mentiene la sesion activa y si hay previamente una sesion inciada te redirije al dash
     Future<void> saveSession(String email) async {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('loggedInUser', email);
+      await prefs.setString('loggedUser', email);
     }
 
     //revisa si hay una sesion gurdada y si hay redirige al dash
@@ -143,40 +143,78 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 15,),
                   Text('PASSWORD:',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Color(0xFFA0A5BA))),
                   txtPassword,
+                  SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      GestureDetector(
-                        // onTap: () => Navigator.push(
-                        //   context, MaterialPageRoute(builder: (context)=>ListStudentScreen())),
-                        onTap: loginUser,
-                          //(){
-                          //isValidating = true;
-                          // GlobalValues.isValidating.value=true;
-                          // Future.delayed(Duration(milliseconds: 4000)).then((onValue){
-                          // GlobalValues.isValidating.value=false;
-                          // Navigator.pushNamed(context, "/dash");
-                          // },);
-                          //},
-                        child: Image.asset("assets/boton.png",
-                        height: 80,
+                      ElevatedButton.icon(
+                        label: Text('Sign Up',style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+                        icon: Icon(Icons.add_reaction_outlined, color: Colors.white,size: 23,),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF18396a),
+                          minimumSize: Size(MediaQuery.of(context).size.width*0.4,50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)
+                          )
                         ),
-                      ),
-                      GestureDetector(
-                        // onTap: () => Navigator.push(
-                        //   context, MaterialPageRoute(builder: (context)=>ListStudentScreen())),
-                        onTap: (){
-                          //isValidating = true;
+                        onPressed: (){
                           GlobalValues.isValidating.value=true;
-                          Future.delayed(Duration(milliseconds: 4000)).then((onValue){
+                          Future.delayed(Duration(milliseconds: 3000)).then((onValue){
                           GlobalValues.isValidating.value=false;
                           Navigator.pushNamed(context, "/signup");
-                          },);
-                          },
-                        child: Image.asset("assets/signup.png",
-                        height: 100,
-                        ),
+                          });
+                        },  
                       ),
+                      ElevatedButton.icon(
+                        label: Text('Log In',style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold)),
+                        icon: Icon(Icons.login_rounded, color: Colors.white,size: 23,),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF18396a),
+                          minimumSize: Size(MediaQuery.of(context).size.width*0.4,50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)
+                          )
+                        ),
+                        onPressed: (){
+                          GlobalValues.isValidating.value=true;
+                          Future.delayed(Duration(milliseconds: 3000)).then((onValue){
+                          GlobalValues.isValidating.value=false;
+                          loginUser();
+                          });
+                        },  
+                      ),
+                      // GestureDetector(
+                      //   // onTap: () => Navigator.push(
+                      //   //   context, MaterialPageRoute(builder: (context)=>ListStudentScreen())),
+                      //   onTap: loginUser,
+                      //     //(){
+                      //     //isValidating = true;
+                      //     // GlobalValues.isValidating.value=true;
+                      //     // Future.delayed(Duration(milliseconds: 4000)).then((onValue){
+                      //     // GlobalValues.isValidating.value=false;
+                      //     // Navigator.pushNamed(context, "/dash");
+                      //     // },);
+                      //     //},
+                      //   child: Image.asset("assets/boton.png",
+                      //   height: 80,
+                      //   ),
+                      // ),
+                      // GestureDetector(
+                      //   // onTap: () => Navigator.push(
+                      //   //   context, MaterialPageRoute(builder: (context)=>ListStudentScreen())),
+                      //   onTap: (){
+                      //     //isValidating = true;
+                      //     GlobalValues.isValidating.value=true;
+                      //     Future.delayed(Duration(milliseconds: 4000)).then((onValue){
+                      //     GlobalValues.isValidating.value=false;
+                      //     Navigator.pushNamed(context, "/signup");
+                      //     },);
+                      //     },
+                      //   child: Image.asset("assets/signup.png",
+                      //   height: 100,
+                      //   ),
+                      // ),
+                      
                     ],
                   ),
                   
