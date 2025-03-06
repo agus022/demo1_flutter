@@ -8,6 +8,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +87,18 @@ class _SettingScreenState extends State<SettingScreen> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15)))),
             ],
-          )
+          ),
+          // DropdownButton(
+          //   items: ['Roboto', 'Arial', 'Courier', 'Times New Roman'].map((font) {
+          //       return DropdownMenuItem<String>(
+          //         value: font,
+          //         child: Text(font, style: TextStyle(fontFamily: font)),
+          //       );
+          //     }).toList(),
+          //   onChanged: (value){
+
+          //   }
+          // )
         ],
       ),
     );
