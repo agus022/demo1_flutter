@@ -88,9 +88,15 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: Sen
+     - family: Light Theme Font
        fonts:
          - asset: fonts/SenFont.ttf
+     - family: Dark Theme Font
+       fonts:
+         - asset: fonts/escritura_mano.ttf
+     - family: Game Theme Font
+       fonts:
+         - asset: fonts/minecraft.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

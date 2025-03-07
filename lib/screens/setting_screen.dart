@@ -1,3 +1,4 @@
+import 'package:demo1/utils/global_values.dart';
 import 'package:flutter/material.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -9,7 +10,11 @@ class SettingScreen extends StatefulWidget {
 
 class _SettingScreenState extends State<SettingScreen> {
 
-  
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +23,11 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          Wrap(
+            spacing: 20,
             children: [
               ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => GlobalValues.changeTheme('light'),
                   label: Text('Light Theme',
                       style: TextStyle(
                           color: Colors.black,
@@ -47,7 +52,7 @@ class _SettingScreenState extends State<SettingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => GlobalValues.changeTheme('dark'),
                   label: Text('Dark Theme',
                       style: TextStyle(
                           color: Colors.white,
@@ -70,7 +75,7 @@ class _SettingScreenState extends State<SettingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => GlobalValues.changeTheme('game'),
                   label: Text('Game Theme',
                       style: TextStyle(
                           color: Colors.white,
