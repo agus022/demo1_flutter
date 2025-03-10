@@ -1,13 +1,48 @@
+import 'dart:io';
+
 import 'package:dark_light_button/dark_light_button.dart';
+import 'package:demo1/Models/user_model.dart';
+import 'package:demo1/database/user.database.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:demo1/utils/theme_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
 
+class _DashboardScreenState extends State<DashboardScreen> {
+  UserModel? loggedUser;
+  late UserDatabase database;
+
+    @override
+  void initState() {
+    super.initState();
+    database = UserDatabase();
+    _loadUser();
+  }
+
+  Future<void> _loadUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? userEmail = prefs.getString('loggedUser'); // Obtener el email del usuario logueado
+
+    if (userEmail != null) {
+      List<UserModel> users = await database.SelectUser();
+      UserModel? user = users.firstWhere(
+        (u) => u.email == userEmail,
+        orElse: () => UserModel(idUser: 0, fullName: 'Usuario Desconocido', email: '', password: '', picture: null),
+      );
+
+      setState(() {
+        loggedUser = user;
+      });
+    }
+  }
+  
   Future<void> logout(BuildContext context)async{
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('loggedUser');
@@ -20,26 +55,19 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("DashBoard"),
-        actions: [
-            // DarlightButton(
-            //   type: Darlights.DarlightFour,
-            //   options: DarlightFourOption(),
-            //   onChange: (value){
-            //     if (value== ThemeMode.light){
-            //       GlobalValues.themeApp.value = ThemeSettings.lightTheme();
-            //     }else{
-            //       GlobalValues.themeApp.value = ThemeData.dark();
-            //     }
-            // })
-        ],
       ),
       drawer: Drawer(
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              currentAccountPicture: CircleAvatar( backgroundImage: NetworkImage('https://avatars.githubusercontent.com/u/61722297?v=4')),
-              accountName: Text('Agustin Flores Silva'),
-              accountEmail: Text('flores.jorge.1j@gmail.com')
+              currentAccountPicture: 
+              CircleAvatar(
+                backgroundImage: loggedUser?.picture != null
+                    ? FileImage(File(loggedUser!.picture!)) // Si tiene imagen guardada, la muestra
+                    : AssetImage('assets/default_avatar.png') as ImageProvider, // Imagen por defecto
+              ),
+              accountName: Text(loggedUser?.fullName ?? "Cargando..."),
+              accountEmail: Text(loggedUser?.email ?? "Cargando..."),
             ),
             ListTile(
               onTap: ()=> Navigator.pushNamed(context, "/listProduct"),

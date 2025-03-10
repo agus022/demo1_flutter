@@ -9,7 +9,7 @@ class UserDatabase{
   static const NAMEDB ='GENERAL.db';
   static const VERSIONDB = 1;
 
-  static Database? _database;//   _ indica que es una variable privada
+  static Database? _database;
 
   Future<Database?> get database async {
     if(_database != null) return _database!;
@@ -56,6 +56,7 @@ class UserDatabase{
     return result.map((task) => UserModel.fromMap(task)).toList();
   }
 
+//consulta para revisar usuario existente en la base de datos
   Future<Map<String, dynamic>?> getUserAuth(String email, String password) async {
   final con = await database;
   List<Map<String, dynamic>> result = await con!.query(
