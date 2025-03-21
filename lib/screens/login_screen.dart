@@ -1,5 +1,6 @@
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:demo1/database/user.database.dart';
+import 'package:demo1/firebase/auth_firebase.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -14,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+  AuthFirebase? auth;
   bool isValidating = false ;
   late UserDatabase? database; 
   TextEditingController conEmail = TextEditingController();
@@ -26,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     void initState(){
       super.initState();
       database = UserDatabase();
+      auth = AuthFirebase();
       checkSession();
     }
 

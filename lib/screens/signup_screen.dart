@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:art_sweetalert/art_sweetalert.dart';
 import 'package:demo1/database/user.database.dart';
+import 'package:demo1/firebase/auth_firebase.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +16,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
 
+  AuthFirebase? auth;
   late UserDatabase? database; 
   TextEditingController conFullName = TextEditingController();
   TextEditingController conEmail = TextEditingController();
@@ -59,6 +61,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void initState(){
     super.initState();
     database = UserDatabase();
+    auth = AuthFirebase();
   }
  Widget build(BuildContext context) {
 
@@ -227,6 +230,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             ElevatedButton(
                               onPressed: (){
                                 if (!_formKey.currentState!.validate()) return;
+                                //metodo para guardar en la base de datos de firebase 
+                                auth!.CREATEuser(conEmail.text, conPassword.text);
                                 database!.InsertUser(
                                  "user", 
                                   {

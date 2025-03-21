@@ -77,7 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: Icon(Icons.chevron_right),
             ),
             ListTile(
-              onTap: ()=> Navigator.pushNamed(context, "/todo"),
+              onTap: ()=> Navigator.pushNamed(context, "/todoF"),
               leading: Icon(Icons.design_services_rounded),
               title: Text('Todo App'),
               subtitle: Text('Task List'),
