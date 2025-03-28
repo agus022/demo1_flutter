@@ -1,5 +1,6 @@
 import 'package:demo1/apis/popular_api.dart';
 import 'package:flutter/material.dart';
+import 'package:demo1/Models/popular_model.dart';
 
 class PopularScreen extends StatefulWidget {
   const PopularScreen({super.key});
@@ -31,14 +32,29 @@ class _PopularScreenState extends State<PopularScreen> {
                 crossAxisCount: 2
               ),
               itemBuilder: (context, index) {
+                return ItemPopular(snapshot.data![index]);
                   
               },
             );
           }else{
-            return Center(child: CircularProgressIndicator(),);
+            if(snapshot.hasError){
+              return Center(child: Text('Ocurrio un error'),);
+            }else{
+              return Center(child: CircularProgressIndicator(),);
+            }
           }
         }
       )
+    );
+  }
+
+  Widget ItemPopular(PopularModel popular){
+    return Container(
+      height: 200,
+      decoration:BoxDecoration(
+        borderRadius:BorderRadius.circular(10),
+        image: DecorationImage(image: NetworkImage('https://image.tmdb.org/t/p/w500/${popular.posterPath}'))
+      ),
     );
   }
 }
