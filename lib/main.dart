@@ -1,9 +1,11 @@
 import 'package:demo1/firebase_options.dart';
 import 'package:demo1/screens/dashboard_screen.dart';
+import 'package:demo1/screens/detail_popular_screen.dart';
 import 'package:demo1/screens/details_product_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
 import 'package:demo1/screens/login_screen.dart';
+import 'package:demo1/screens/popular_screen.dart';
 import 'package:demo1/screens/setting_screen.dart';
 import 'package:demo1/screens/signup_screen.dart';
 import 'package:demo1/screens/splash_screen.dart';
@@ -43,7 +45,9 @@ class MyApp extends StatelessWidget {
             "/todoF":(context)=> const TodoFireBaseScreen(),
             "/signup":(context)=> const SignupScreen(),
             "/login":(context)=>const LoginScreen(),
-            "/setting":(context)=>const SettingScreen()
+            "/setting":(context)=>const SettingScreen(),
+            "/api": (context) =>const PopularScreen(),
+            "/movieDetail": (context) => DetailPopularScreen()  
           },
           //theme: ThemeData.dark(),
         );

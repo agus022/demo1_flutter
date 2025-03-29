@@ -6,7 +6,7 @@ class PopularModel {
   String overview;
   double popularity;
   String posterPath;
-  DateTime releaseDate;
+  String releaseDate;
   String title;
   double voteAverage;
   int voteCount;
@@ -34,7 +34,7 @@ class PopularModel {
      overview: popular['overview'],
      popularity: popular['popularity'],
      posterPath: popular['poster_path'],
-     releaseDate: DateTime.parse(popular['release_date']),//al tiro con el parseo 
+     releaseDate: popular['release_date'],//al tiro con el parseo 
      title: popular['title'],
      voteAverage: popular['vote_average'],
      voteCount: popular['vote_count'],
