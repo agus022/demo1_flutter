@@ -66,11 +66,14 @@ class _PopularScreenState extends State<PopularScreen> {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: FadeInImage(
-            fadeInDuration: Duration(seconds: 5),
-            fit: BoxFit.cover,
-            placeholder: AssetImage('assets/loading.gif'), 
-            image: NetworkImage('https://image.tmdb.org/t/p/w500/${popular.posterPath}'),
+          child: Hero(
+            tag: 'https://image.tmdb.org/t/p/w500/${popular.posterPath}',
+            child: FadeInImage(
+              fadeInDuration: Duration(seconds: 5),
+              fit: BoxFit.cover,
+              placeholder: AssetImage('assets/loading.gif'), 
+              image: NetworkImage('https://image.tmdb.org/t/p/w500/${popular.posterPath}'),
+            ),
           ),
         )
       ),
