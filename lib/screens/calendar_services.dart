@@ -1,8 +1,7 @@
+import 'package:demo1/firebase/store_firebase.dart';
 import 'package:demo1/views/item_modal_calendar_services.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import 'package:table_calendar/table_calendar.dart';
 
 
@@ -17,6 +16,33 @@ class CalendarServices extends StatefulWidget {
 class _CalendarServicesState extends State<CalendarServices> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+
+  final StoreFirebase storeFirebase = StoreFirebase();
+  Map<DateTime, List<String>> eventosPorFecha = {};
+
+  DateTime _normalizeDate(DateTime date) =>
+  DateTime.utc(date.year, date.month, date.day);
+
+  
+  //simulacion
+  // Map<DateTime, List<String>> eventosPorFecha = {
+  //   DateTime.utc(2025, 4, 23): ['completado'],
+  //   DateTime.utc(2025, 4, 24): [ 'pendiente', 'pendiente', 'pendiente','completado', 'cancelado'],
+    
+  // };
+
+  void _loadEventos() async {
+    final eventos = await storeFirebase.getEventosPorFecha();
+    setState(() {
+      eventosPorFecha = eventos;
+    });
+  }
+
+  @override
+  void initState(){
+    super.initState();
+    _loadEventos();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +69,47 @@ class _CalendarServicesState extends State<CalendarServices> {
                 expand: true,
                 builder: (context) => ModalCalendar(date: selectedDay)
               );
-            })
+            },
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context,day,events){
+                final dateKey = _normalizeDate(day);
+                final estados = eventosPorFecha[dateKey];
+
+                if (estados == null || estados.isEmpty) return SizedBox.shrink();
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: estados.map((estados){
+                    Color color;
+                    switch (estados) {
+                      case 'pendiente':
+                        color = Colors.yellow;
+                        break;
+                      case 'completado':
+                        color = Colors.green;
+                        break;
+                      case 'cancelado':
+                        color = Colors.red;
+                        break;
+                      default:
+                        color = Colors.grey;
+                    }
+
+                    return Container(
+                      margin: EdgeInsets.symmetric(horizontal: 1.5),
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: color,
+                        shape: BoxShape.circle,
+                      ),
+                    );
+                  }).toList()
+                );
+              }
+            ),
+            
+          )
         ],
       ),
     );
