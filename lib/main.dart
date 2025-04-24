@@ -1,8 +1,10 @@
 import 'package:demo1/firebase_options.dart';
+import 'package:demo1/screens/calendar_services.dart';
 import 'package:demo1/screens/dashboard_screen.dart';
 import 'package:demo1/screens/detail_popular_screen.dart';
 import 'package:demo1/screens/details_product_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
+import 'package:demo1/screens/list_services_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
 import 'package:demo1/screens/login_screen.dart';
 import 'package:demo1/screens/popular_screen.dart';
@@ -47,7 +49,9 @@ class MyApp extends StatelessWidget {
             "/login":(context)=>const LoginScreen(),
             "/setting":(context)=>const SettingScreen(),
             "/api": (context) =>const PopularScreen(),
-            "/movieDetail": (context) => DetailPopularScreen()  
+            "/movieDetail": (context) => DetailPopularScreen(),
+            "/listService": (context) => const ListServicesScreen(),
+            "/calendarService": (context) => const CalendarServices() 
           },
           //theme: ThemeData.dark(),
         );

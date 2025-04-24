@@ -91,6 +91,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: Icon(Icons.chevron_right),
             ),
             ListTile(
+              onTap: ()=> Navigator.pushNamed(context, "/listService"),
+              leading: Icon(Icons.shopping_cart),
+              title: Text('Sales Manager'),
+              subtitle: Text('Pending sales or services',style: TextStyle(fontSize: 13),),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
               onTap: ()=> Navigator.pushNamed(context, "/setting"),
               leading: Icon(Icons.settings),
               title: Text('Settings'),
