@@ -23,14 +23,6 @@ class _CalendarServicesState extends State<CalendarServices> {
   DateTime _normalizeDate(DateTime date) =>
   DateTime.utc(date.year, date.month, date.day);
 
-  
-  //simulacion
-  // Map<DateTime, List<String>> eventosPorFecha = {
-  //   DateTime.utc(2025, 4, 23): ['completado'],
-  //   DateTime.utc(2025, 4, 24): [ 'pendiente', 'pendiente', 'pendiente','completado', 'cancelado'],
-    
-  // };
-
   void _loadEventos() async {
     final eventos = await storeFirebase.getEventosPorFecha();
     setState(() {
