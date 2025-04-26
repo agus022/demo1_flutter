@@ -29,7 +29,7 @@ final firebase = FirebaseFirestore.instance;
   }
 
 
-  Future<Map<DateTime, List<String>>> getEventosPorFecha() async {
+  Future<Map<DateTime, List<String>>> getEventosCalendar() async {
     final snapshot = await collection!.get();
     Map<DateTime, List<String>> resultado = {};
 
@@ -53,4 +53,16 @@ final firebase = FirebaseFirestore.instance;
 
     return resultado;
   }
+
+
+  Future<QuerySnapshot> getPedidosFecha(DateTime fecha) async {
+  final inicioDia = Timestamp.fromDate(DateTime.utc(fecha.year, fecha.month, fecha.day, 0, 0, 0));
+  final finDia = Timestamp.fromDate(DateTime.utc(fecha.year, fecha.month, fecha.day, 23, 59, 59));
+
+  return await collection!
+      .where('fechaServicio', isGreaterThanOrEqualTo: inicioDia)
+      .where('fechaServicio', isLessThanOrEqualTo: finDia)
+      .get();
+}
+
 }

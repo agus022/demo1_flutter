@@ -24,7 +24,7 @@ class _CalendarServicesState extends State<CalendarServices> {
   DateTime.utc(date.year, date.month, date.day);
 
   void _loadEventos() async {
-    final eventos = await storeFirebase.getEventosPorFecha();
+    final eventos = await storeFirebase.getEventosCalendar();
     setState(() {
       eventosPorFecha = eventos;
     });
@@ -35,6 +35,22 @@ class _CalendarServicesState extends State<CalendarServices> {
     super.initState();
     _loadEventos();
   }
+  Widget _IndicatorPoint(Color color, String label) {
+  return Row(
+    children: [
+      Container(
+        width: 10,
+        height: 10,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle,
+        ),
+      ),
+      const SizedBox(width: 4),
+      Text(label, style: TextStyle(fontSize: 14, color: Colors.black)),
+    ],
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +75,8 @@ class _CalendarServicesState extends State<CalendarServices> {
               showCupertinoModalBottomSheet(
                 context: context,
                 expand: true,
-                builder: (context) => ModalCalendar(date: selectedDay)
+                useRootNavigator: true,
+                builder: (context) => ModalCalendar(date: selectedDay, storeFirebase: storeFirebase,)
               );
             },
             calendarBuilders: CalendarBuilders(
@@ -101,7 +118,22 @@ class _CalendarServicesState extends State<CalendarServices> {
               }
             ),
             
+          ),
+          SizedBox(height: 10,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _IndicatorPoint(Colors.yellow, 'Pendiente'),
+                const SizedBox(width: 16),
+                _IndicatorPoint(Colors.green, 'Completado'),
+                const SizedBox(width: 16),
+                _IndicatorPoint(Colors.red, 'Cancelado'),
+              ],
+            ),
           )
+
         ],
       ),
     );
