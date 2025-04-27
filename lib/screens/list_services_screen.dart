@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:intl/intl.dart';
+import 'package:badges/badges.dart' as badges;
+import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class ListServicesScreen extends StatefulWidget {
   const ListServicesScreen({super.key});
@@ -14,6 +16,7 @@ class ListServicesScreen extends StatefulWidget {
 class _ListServicesScreenState extends State<ListServicesScreen> {
   String selectedStatus = 'Todos';
   StoreFirebase? storeFirebase;
+  int cantidadProductos = 10;
 
   @override
   void initState() {
@@ -46,14 +49,24 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Gestión de ventas'),
+        title: Text('Gestión de ventas',style: TextStyle(fontSize: 20),),
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/calendarService');
               },
               icon: Icon(Icons.calendar_month_rounded)),
-          SizedBox(width: 8)
+          SizedBox(width: 3),
+          badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 0,end: 3),
+            badgeContent: Text(cantidadProductos.toString(),style: TextStyle(color: Colors.white,fontSize: 8),),
+            child: IconButton(
+              onPressed: (){
+                Navigator.pushNamed(context, '/shoppingCart');
+              }, 
+              icon: Icon(Icons.shopping_cart_rounded)
+            ),
+          ),
         ],
       ),
       body: StreamBuilder(
@@ -188,6 +201,33 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
             ],
           );
         },
+      ),
+      floatingActionButtonLocation: ExpandableFab.location,
+      floatingActionButton: ExpandableFab(
+        type: ExpandableFabType.fan,
+        overlayStyle: ExpandableFabOverlayStyle(
+          blur: 5,
+          color: Colors.white10   
+        ),
+        distance: 70,
+        children: [
+          FloatingActionButton.small(
+          heroTag: 'producto',
+          tooltip: 'Agregar Producto',
+          child: Icon(Icons.shopping_bag, size: 30,),
+          onPressed: () {
+
+            },
+          ),
+          FloatingActionButton.small(
+            heroTag: 'categoria',
+            tooltip: 'Agregar Categoría',
+            child: Icon(Icons.category,size: 30,),
+            onPressed: () {
+              Navigator.pushNamed(context, '/categories');
+            },
+          ),
+        ],
       ),
     );
   }

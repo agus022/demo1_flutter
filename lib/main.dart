@@ -3,6 +3,7 @@ import 'package:demo1/screens/calendar_services.dart';
 import 'package:demo1/screens/dashboard_screen.dart';
 import 'package:demo1/screens/detail_popular_screen.dart';
 import 'package:demo1/screens/details_product_screen.dart';
+import 'package:demo1/screens/list_categories_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_services_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
@@ -12,7 +13,6 @@ import 'package:demo1/screens/setting_screen.dart';
 import 'package:demo1/screens/signup_screen.dart';
 import 'package:demo1/screens/splash_screen.dart';
 import 'package:demo1/screens/todo_firebase_screen.dart';
-import 'package:demo1/screens/todo_screen.dart';
 import 'package:demo1/utils/global_values.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +51,8 @@ class MyApp extends StatelessWidget {
             "/api": (context) =>const PopularScreen(),
             "/movieDetail": (context) => DetailPopularScreen(),
             "/listService": (context) => const ListServicesScreen(),
-            "/calendarService": (context) => const CalendarServices() 
+            "/calendarService": (context) => const CalendarServices(),
+            "/categories": (context) => const ListCategoriesScreen()  
           },
           //theme: ThemeData.dark(),
         );

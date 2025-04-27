@@ -1,7 +1,6 @@
 import 'package:demo1/apis/popular_api.dart';
 import 'package:flutter/material.dart';
 import 'package:demo1/Models/popular_model.dart';
-import 'package:demo1/screens/detail_popular_screen.dart';
 
 class PopularScreen extends StatefulWidget {
   const PopularScreen({super.key});

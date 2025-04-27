@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  badges:
+    dependency: "direct main"
+    description:
+      name: badges
+      sha256: a7b6bbd60dce418df0db3058b53f9d083c22cdb5132a052145dc267494df0b84
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
   boolean_selector:
     dependency: transitive
     description:
@@ -334,6 +342,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_expandable_fab:
+    dependency: "direct main"
+    description:
+      name: flutter_expandable_fab
+      sha256: "4d03f54e5384897e32606e9959cef5e7857e5a203e24684f95dfbb5f7fb9b88e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
