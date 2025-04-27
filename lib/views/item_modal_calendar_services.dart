@@ -37,7 +37,7 @@ const ModalCalendar({super.key, required this.date, required this.storeFirebase}
     
     return Container(
       decoration: const BoxDecoration(
-        color: Color(0xFFF1EFEC),
+        color: Color(0xFFFFFFFF),
       ),
       child: FutureBuilder<QuerySnapshot>(
         future: storeFirebase.getPedidosFecha(normalizedDate), 

@@ -57,6 +57,7 @@ dependencies:
   table_calendar: ^3.2.0
   modal_bottom_sheet: ^3.0.0
   dropdown_search: ^6.0.2
+  adaptive_dialog: ^2.4.1
 
 dev_dependencies:
   flutter_test:

@@ -65,4 +65,11 @@ final firebase = FirebaseFirestore.instance;
       .get();
 }
 
+Future<void> actualizarEstadoPedido(String docId, String nuevoEstado) async {
+  await collection!.doc(docId).update({
+    'estado': nuevoEstado,
+  });
+}
+
+
 }

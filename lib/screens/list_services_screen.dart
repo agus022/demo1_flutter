@@ -1,6 +1,7 @@
 import 'package:demo1/firebase/store_firebase.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:intl/intl.dart';
 
 class ListServicesScreen extends StatefulWidget {
@@ -100,6 +101,8 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     var obj = pedidos[index];
+                    final estado = obj.get('estado') ?? '';
+
                     return Container(
                       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                       padding: EdgeInsets.all(12),
@@ -110,13 +113,71 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("NO. PEDIDO: ${obj.get('id')}",style: TextStyle(fontWeight: FontWeight.bold)),
-                          Text("CLIENTE: ${obj.get('cliente')}"),
-                          SizedBox(height: 8),
-                          Text("PRODUCTO: ${obj.get('producto')}"),
-                          SizedBox(height: 4),
-                          Text("FECHA: ${_formatearFecha(obj.get('fechaServicio'))}",style:TextStyle(fontSize: 12, color: Colors.grey[600]),
+                          Row(
+                            children: [
+                            Text("No. pedido: ${obj.get('id')}",style: TextStyle(fontWeight: FontWeight.bold)),
+                            Spacer(),
+                            Text("Estado: ${obj.get('estado')}",style: TextStyle(fontWeight: FontWeight.bold)),
+                            ]
                           ),
+                          Row(
+                            children: [
+                              Text("Fecha: ${_formatearFecha(obj.get('fechaServicio'))}",style:TextStyle( color: Colors.grey[600], fontWeight: FontWeight.bold)),
+                              if(estado == 'pendiente')...[
+                                Spacer(),
+                                IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                  onPressed: (){
+                                
+                                  }, 
+                                  icon: Icon(Icons.edit)
+                                ), 
+                                IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                  onPressed: () async{
+                                    final result = await showOkCancelAlertDialog(
+                                      context: context,
+                                      title: 'Cancelar ',
+                                      message: 'Estas seguro, cancelar el pedido ?',
+                                    );
+                                    if(result == OkCancelResult.ok){
+                                      await storeFirebase!.actualizarEstadoPedido(obj.id, 'cancelado');
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Pedido cancelado exitosamente! ')),
+                                      );
+                                    }
+                                  }, 
+                                  icon: Icon(Icons.close)
+                                ),
+                                IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: BoxConstraints(),
+                                  onPressed: () async{
+                                    final result = await showOkCancelAlertDialog(
+                                      context: context,
+                                      title: 'Completar ' ,
+                                      message: 'Estas seguro, completar el pedido ?'
+                                    );
+                                    if(result == OkCancelResult.ok){
+                                      await storeFirebase!.actualizarEstadoPedido(obj.id, 'completado');
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text('Pedido completado exitosamente! :)')),
+                                      );
+
+                                    }
+                                     
+                                  }, 
+                                  icon: Icon(Icons.check)
+                                ),
+                              ],
+                            ],
+                          ),
+                          Text("Cliente: ${obj.get('cliente')}",style: TextStyle(fontSize: 15),),
+                          SizedBox(height: 8),
+                          Text("Productos: ${obj.get('producto')}"),
+                          SizedBox(height: 4),
                         ],
                       ),
                     );

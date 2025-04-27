@@ -35,7 +35,7 @@ class _CalendarServicesState extends State<CalendarServices> {
     super.initState();
     _loadEventos();
   }
-  Widget _IndicatorPoint(Color color, String label) {
+  Widget _indicatorPoint(Color color, String label) {
   return Row(
     children: [
       Container(
@@ -119,17 +119,17 @@ class _CalendarServicesState extends State<CalendarServices> {
             ),
             
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _IndicatorPoint(Colors.yellow, 'Pendiente'),
+                _indicatorPoint(Colors.yellow, 'Pendiente'),
                 const SizedBox(width: 16),
-                _IndicatorPoint(Colors.green, 'Completado'),
+                _indicatorPoint(Colors.green, 'Completado'),
                 const SizedBox(width: 16),
-                _IndicatorPoint(Colors.red, 'Cancelado'),
+                _indicatorPoint(Colors.red, 'Cancelado'),
               ],
             ),
           )
