@@ -216,6 +216,7 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
           tooltip: 'Agregar Producto',
           child: Icon(Icons.shopping_bag, size: 30,),
           onPressed: () {
+              Navigator.pushNamed(context, '/productStore');
 
             },
           ),

@@ -24,4 +24,15 @@ final firebase = FirebaseFirestore.instance;
   Future<void> deleteCategory(String id) async {
     await collection!.doc(id).delete();
   }
+
+  Future<List<Map<String, dynamic>>> getCategoriesList() async {
+  final snapshot = await collection!.get();
+  return snapshot.docs.map((doc) {
+    return {
+      'idCategoria': doc['idCategoria'],
+      'nombre': doc['nombre'],
+    };
+  }).toList();
+}
+
 }

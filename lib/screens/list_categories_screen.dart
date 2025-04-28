@@ -1,7 +1,6 @@
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo1/firebase/categories_firebase.dart';
-import 'package:demo1/firebase/store_firebase.dart';
 import 'package:flutter/material.dart';
 
 class ListCategoriesScreen extends StatefulWidget {

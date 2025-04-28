@@ -5,6 +5,7 @@ import 'package:demo1/screens/detail_popular_screen.dart';
 import 'package:demo1/screens/details_product_screen.dart';
 import 'package:demo1/screens/list_categories_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
+import 'package:demo1/screens/list_product_store_screen.dart';
 import 'package:demo1/screens/list_services_screen.dart';
 import 'package:demo1/screens/list_students_screen.dart';
 import 'package:demo1/screens/login_screen.dart';
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
             "/movieDetail": (context) => DetailPopularScreen(),
             "/listService": (context) => const ListServicesScreen(),
             "/calendarService": (context) => const CalendarServices(),
-            "/categories": (context) => const ListCategoriesScreen()  
+            "/categories": (context) => const ListCategoriesScreen(),
+            "/productStore": (context) => const ListProductStoreScreen() 
           },
           //theme: ThemeData.dark(),
         );
