@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class ListServicesScreen extends StatefulWidget {
@@ -178,18 +179,17 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                           SizedBox(height: 8),
                           Builder(
                             builder: (context){
-                              final productosRaw = obj.get('producto') ?? [];
-                              final productos = List<Map<String, dynamic>>.from(productosRaw as List);
-                              final productosTexto = productos.map((producto) {
+                              final productosList = List<Map<String, dynamic>>.from(obj.get('producto') ?? []);
+
+
+                              final productosTexto = productosList.map((producto) {
                               final cantidad = producto['cantidad'] ?? 1;
                               final nombre = producto['nombre'] ?? '';
-                                return "$cantidad'x' $nombre";
+                                return "$cantidad x $nombre";
                               }).join(', ');
                               return Text("Productos: $productosTexto");
                             }
                           ),
-                          Text("Productos: ${obj.get('producto')}"),
-                          SizedBox(height: 4),
                         ],
                       ),
                     );
