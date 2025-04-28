@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:intl/intl.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 
 class ListServicesScreen extends StatefulWidget {
@@ -63,16 +62,6 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
             }, 
             icon: Icon(Icons.add,size: 30,)
           )
-          // badges.Badge(
-          //   position: badges.BadgePosition.topEnd(top: 0,end: 3),
-          //   badgeContent: Text(cantidadProductos.toString(),style: TextStyle(color: Colors.white,fontSize: 8),),
-          //   child: IconButton(
-          //     onPressed: (){
-          //       Navigator.pushNamed(context, '/shoppingCart');
-          //     }, 
-          //     icon: Icon(Icons.shopping_cart_rounded)
-          //   ),
-          // ),
         ],
       ),
       body: StreamBuilder(
@@ -134,7 +123,7 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                         children: [
                           Row(
                             children: [
-                            Text("No. pedido: ${obj.get('id')}",style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("No. pedido: PED-${obj.id.substring(obj.id.length - 5)}",style: TextStyle(fontWeight: FontWeight.bold)),
                             Spacer(),
                             Text("Estado: ${obj.get('estado')}",style: TextStyle(fontWeight: FontWeight.bold)),
                             ]
@@ -144,14 +133,6 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                               Text("Fecha: ${_formatearFecha(obj.get('fechaServicio'))}",style:TextStyle( color: Colors.grey[600], fontWeight: FontWeight.bold)),
                               if(estado == 'pendiente')...[
                                 Spacer(),
-                                // IconButton(
-                                //   padding: EdgeInsets.zero,
-                                //   constraints: BoxConstraints(),
-                                //   onPressed: (){
-                                
-                                //   }, 
-                                //   icon: Icon(Icons.edit)
-                                // ), 
                                 IconButton(
                                   padding: EdgeInsets.zero,
                                   constraints: BoxConstraints(),
@@ -195,6 +176,18 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                           ),
                           Text("Cliente: ${obj.get('cliente')}",style: TextStyle(fontSize: 15),),
                           SizedBox(height: 8),
+                          Builder(
+                            builder: (context){
+                              final productosRaw = obj.get('producto') ?? [];
+                              final productos = List<Map<String, dynamic>>.from(productosRaw as List);
+                              final productosTexto = productos.map((producto) {
+                              final cantidad = producto['cantidad'] ?? 1;
+                              final nombre = producto['nombre'] ?? '';
+                                return "$cantidad'x' $nombre";
+                              }).join(', ');
+                              return Text("Productos: $productosTexto");
+                            }
+                          ),
                           Text("Productos: ${obj.get('producto')}"),
                           SizedBox(height: 4),
                         ],

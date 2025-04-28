@@ -115,10 +115,8 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                     itemBuilder: (context, index) {
                       final producto = productosSeleccionados[index];
                       return ListTile(
-                        title: Text(producto['nombre']),
+                        title: Text('${producto['cantidad']}x ${producto['nombre']}'),
                         subtitle: Text(producto['descripcion']),
-                        
-                        
                       );
                     },
                   ),
@@ -161,6 +159,7 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                         return;
                       }
                       await storeFirebase?.addOrder({
+                        
                         'cliente': clienteController.text,
                         'producto': productosSeleccionados,
                         'fechaServicio': Timestamp.now(),
