@@ -57,16 +57,22 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
               },
               icon: Icon(Icons.calendar_month_rounded)),
           SizedBox(width: 3),
-          badges.Badge(
-            position: badges.BadgePosition.topEnd(top: 0,end: 3),
-            badgeContent: Text(cantidadProductos.toString(),style: TextStyle(color: Colors.white,fontSize: 8),),
-            child: IconButton(
-              onPressed: (){
-                Navigator.pushNamed(context, '/shoppingCart');
-              }, 
-              icon: Icon(Icons.shopping_cart_rounded)
-            ),
-          ),
+          IconButton(
+            onPressed: (){
+              Navigator.pushNamed(context, '/addOrders');
+            }, 
+            icon: Icon(Icons.add,size: 30,)
+          )
+          // badges.Badge(
+          //   position: badges.BadgePosition.topEnd(top: 0,end: 3),
+          //   badgeContent: Text(cantidadProductos.toString(),style: TextStyle(color: Colors.white,fontSize: 8),),
+          //   child: IconButton(
+          //     onPressed: (){
+          //       Navigator.pushNamed(context, '/shoppingCart');
+          //     }, 
+          //     icon: Icon(Icons.shopping_cart_rounded)
+          //   ),
+          // ),
         ],
       ),
       body: StreamBuilder(
@@ -138,14 +144,14 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                               Text("Fecha: ${_formatearFecha(obj.get('fechaServicio'))}",style:TextStyle( color: Colors.grey[600], fontWeight: FontWeight.bold)),
                               if(estado == 'pendiente')...[
                                 Spacer(),
-                                IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: BoxConstraints(),
-                                  onPressed: (){
+                                // IconButton(
+                                //   padding: EdgeInsets.zero,
+                                //   constraints: BoxConstraints(),
+                                //   onPressed: (){
                                 
-                                  }, 
-                                  icon: Icon(Icons.edit)
-                                ), 
+                                //   }, 
+                                //   icon: Icon(Icons.edit)
+                                // ), 
                                 IconButton(
                                   padding: EdgeInsets.zero,
                                   constraints: BoxConstraints(),

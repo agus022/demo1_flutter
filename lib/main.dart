@@ -1,4 +1,5 @@
 import 'package:demo1/firebase_options.dart';
+import 'package:demo1/screens/add_orders_store_screen.dart';
 import 'package:demo1/screens/calendar_services.dart';
 import 'package:demo1/screens/dashboard_screen.dart';
 import 'package:demo1/screens/detail_popular_screen.dart';
@@ -54,7 +55,8 @@ class MyApp extends StatelessWidget {
             "/listService": (context) => const ListServicesScreen(),
             "/calendarService": (context) => const CalendarServices(),
             "/categories": (context) => const ListCategoriesScreen(),
-            "/productStore": (context) => const ListProductStoreScreen() 
+            "/productStore": (context) => const ListProductStoreScreen(),
+            "/addOrders": (context) => const AddOrdersStoreScreen(),
           },
           //theme: ThemeData.dark(),
         );
