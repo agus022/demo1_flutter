@@ -4,6 +4,7 @@ import 'package:demo1/screens/calendar_services.dart';
 import 'package:demo1/screens/dashboard_screen.dart';
 import 'package:demo1/screens/detail_popular_screen.dart';
 import 'package:demo1/screens/details_product_screen.dart';
+import 'package:demo1/screens/google_map_screeen.dart';
 import 'package:demo1/screens/list_categories_screen.dart';
 import 'package:demo1/screens/list_product_screen.dart';
 import 'package:demo1/screens/list_product_store_screen.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
             "/categories": (context) => const ListCategoriesScreen(),
             "/productStore": (context) => const ListProductStoreScreen(),
             "/addOrders": (context) => const AddOrdersStoreScreen(),
+            "/apiMaps": (context) => const MapSample()
           },
           //theme: ThemeData.dark(),
         );

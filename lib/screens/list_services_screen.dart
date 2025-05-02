@@ -126,7 +126,7 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                             children: [
                             Text("No. pedido: PED-${obj.id.substring(obj.id.length - 5)}",style: TextStyle(fontWeight: FontWeight.bold)),
                             Spacer(),
-                            Text("Estado: ${obj.get('estado')}",style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("Estado: ${obj.get('estado')}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12)),
                             ]
                           ),
                           Row(
@@ -186,8 +186,8 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
                               final cantidad = producto['cantidad'] ?? 1;
                               final nombre = producto['nombre'] ?? '';
                                 return "$cantidad x $nombre";
-                              }).join(', ');
-                              return Text("Productos: $productosTexto");
+                              }).join('\n');
+                              return Text("Productos: \n$productosTexto",);
                             }
                           ),
                         ],

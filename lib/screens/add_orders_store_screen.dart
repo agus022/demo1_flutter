@@ -5,6 +5,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:demo1/firebase/store_firebase.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddOrdersStoreScreen extends StatefulWidget {
   const AddOrdersStoreScreen({super.key});
@@ -17,7 +18,8 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
   CategoriesFirebase? categoriesFirebase;
   ProductStoreFirebase? productStoreFirebase;
   StoreFirebase? storeFirebase;
-  
+  DateTime? selectedDate;
+
   String? selectedCategoryId;
   List<Map<String, dynamic>> productosSeleccionados = [];
 
@@ -130,6 +132,33 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                 ),
               ),
               SizedBox(height: 12,),
+              GestureDetector(
+                onTap: () async {
+                    final picked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                    );
+                    if (picked != null) {
+                      setState(() {
+                        selectedDate = picked;
+                      });
+                    }
+                  },
+                  child: AbsorbPointer(
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        labelText:'Fecha servicio',
+                        border: OutlineInputBorder(),
+                        suffixIcon:Icon(Icons.calendar_today)  
+                      ),
+                      controller: TextEditingController(
+                        text: selectedDate != null ? DateFormat('dd/MM/yyyy').format(selectedDate!):'',
+                      ),
+                    ),
+                  ),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -162,7 +191,7 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                         
                         'cliente': clienteController.text,
                         'producto': productosSeleccionados,
-                        'fechaServicio': Timestamp.now(),
+                        'fechaServicio': Timestamp.fromDate(selectedDate!),
                         'estado': 'pendiente',
                       });
 

@@ -98,6 +98,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               trailing: Icon(Icons.chevron_right),
             ),
             ListTile(
+              onTap: ()=> Navigator.pushNamed(context, "/apiMaps"),
+              leading: Icon(Icons.map_rounded),
+              title: Text('Google Mapas'),
+              subtitle: Text('Geolocation de tu ubicacion',style: TextStyle(fontSize: 13),),
+              trailing: Icon(Icons.chevron_right),
+            ),
+            ListTile(
               onTap: ()=> Navigator.pushNamed(context, "/setting"),
               leading: Icon(Icons.settings),
               title: Text('Settings'),
