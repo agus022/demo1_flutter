@@ -216,7 +216,6 @@ class _ListServicesScreenState extends State<ListServicesScreen> {
           child: Icon(Icons.shopping_bag, size: 30,),
           onPressed: () {
               Navigator.pushNamed(context, '/productStore');
-
             },
           ),
           FloatingActionButton.small(

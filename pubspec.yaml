@@ -61,6 +61,7 @@ dependencies:
   flutter_expandable_fab: ^2.4.1
   badges: ^3.1.2
   google_maps_flutter: ^2.12.1
+  flutter_dotenv: ^5.1.0
 
 dev_dependencies:
   flutter_test:

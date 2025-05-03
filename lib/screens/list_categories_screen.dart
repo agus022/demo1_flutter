@@ -24,35 +24,25 @@ Future<void> _agregarCategoria() async {
   final result = await showTextInputDialog(
     context: context,
     title: 'Nueva Categoría',
-    message: 'Completa los datos',
+    message: 'Ingresa nombre de la categoria nueva',
     textFields: const [
-      DialogTextField(
-        hintText: 'ID de categoría (número)',
-        keyboardType: TextInputType.number,
-      ),
       DialogTextField(
         hintText: 'Nombre de la categoría',
       ),
     ],
   );
 
-  if (result != null && result.length == 2) {
-    final idCategoriaStr = result[0];
-    final nombreCategoria = result[1];
+if (result != null && result.isNotEmpty) {
+    final nombreCategoria = result.first;
 
-    if (idCategoriaStr.isNotEmpty && nombreCategoria.isNotEmpty) {
-      final idCategoria = int.tryParse(idCategoriaStr);
+    if (nombreCategoria.isNotEmpty) {
+      await categoriesFirebase?.addCategory({
+        'nombre': nombreCategoria,
+      });
 
-      if (idCategoria != null) {
-        await categoriesFirebase?.addCategory({
-          'idCategoria': idCategoria,
-          'nombre': nombreCategoria,
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('ID debe ser un número válido')),
-        );
-      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Categoría agregada correctamente')),
+      );
     }
   }
 }
@@ -101,7 +91,9 @@ Future<void> _agregarCategoria() async {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _agregarCategoria,
-        child: Icon(Icons.add),
+        backgroundColor: Colors.deepPurple,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: const Icon(Icons.add, size: 30,color: Colors.white,),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: categoriesFirebase?.selectCategories(), 
@@ -120,22 +112,41 @@ Future<void> _agregarCategoria() async {
             itemCount: categorias.length,
             itemBuilder: (context, index) {
               final categoria = categorias[index];
-              return ListTile(
-                title: Text(categoria['nombre']),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: () => _editarCategoria(categoria.id, categoria['nombre']),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _eliminarCategoria(categoria.id),
-                    ),
-                  ],
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          categoria['nombre'],
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => _editarCategoria(categoria.id, categoria['nombre']),
+                        icon: const Icon(Icons.edit_rounded),
+                        color: Colors.indigo,
+                      ),
+                      IconButton(
+                        onPressed: () => _eliminarCategoria(categoria.id),
+                        icon: const Icon(Icons.delete_rounded),
+                        color: Colors.redAccent,
+                      ),
+                    ],
+                  ),
                 ),
               );
+
             },
           );
         }

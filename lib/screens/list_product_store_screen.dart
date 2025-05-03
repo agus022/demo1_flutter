@@ -47,7 +47,7 @@ class _ListProductStoreScreenState extends State<ListProductStoreScreen> {
       return;
     }
 
-    int? selectedCategoriaId;
+    String? selectedCategoriaId;
 
     await showDialog(
       context: context,
@@ -63,13 +63,6 @@ class _ListProductStoreScreenState extends State<ListProductStoreScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  controller: conIdProducto,
-                  decoration: const InputDecoration(
-                    labelText: 'ID del producto',
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
                 const SizedBox(height: 8),
                 TextField(
                   controller: conNombreProducto,
@@ -85,13 +78,14 @@ class _ListProductStoreScreenState extends State<ListProductStoreScreen> {
                   ),
                 ),
                 const SizedBox(height: 8),
-                DropdownButtonFormField<int>(
+                DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
                     labelText: 'Seleccionar Categoría',
                   ),
+                  value: selectedCategoriaId,
                   items: categorias.map((cat) {
-                    return DropdownMenuItem<int>(
-                      value: cat['idCategoria'],
+                    return DropdownMenuItem<String>(
+                      value: cat['id'], // ahora es String
                       child: Text(cat['nombre']),
                     );
                   }).toList(),
@@ -113,9 +107,8 @@ class _ListProductStoreScreenState extends State<ListProductStoreScreen> {
                 final nombreProducto = conNombreProducto.text.trim();
                 final descripcion = conDescripcion.text.trim();
 
-                if (idProducto != null && nombreProducto.isNotEmpty && selectedCategoriaId != null) {
+                if (nombreProducto.isNotEmpty && selectedCategoriaId != null) {
                   await productStoreFirebase?.addProduct({
-                    'idProducto': idProducto,
                     'nombre': nombreProducto,
                     'descripcion': descripcion,
                     'idCategoria': selectedCategoriaId,
@@ -172,7 +165,9 @@ class _ListProductStoreScreenState extends State<ListProductStoreScreen> {
       appBar: AppBar(title: Text('Productos'),),
       floatingActionButton: FloatingActionButton(
         onPressed: _agregarProducto,
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.deepPurple,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: const Icon(Icons.add, size: 30,color: Colors.white,),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: productStoreFirebase?.selectProducts(), 
@@ -189,28 +184,60 @@ class _ListProductStoreScreenState extends State<ListProductStoreScreen> {
 
           return ListView.builder(
             itemCount: productos.length,
-            itemBuilder:(context,index){
-            final producto = productos[index];
-              return ListTile(
-                title: Text(producto['nombre']),
-                subtitle: Text('Descripción: ${producto['descripcion']}'),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit, color: Colors.blue),
-                      onPressed: () => _editarProducto(producto.id, producto.data() as Map<String, dynamic>),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.red),
-                      onPressed: () => _eliminarProducto(producto.id),
-                    ),
-                  ],
+            itemBuilder: (context, index) {
+              final producto = productos[index];
+              final data = producto.data() as Map<String, dynamic>;
+
+              return Card(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              data['nombre'] ?? '',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Descripción: ${data['descripcion'] ?? ''}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () => _editarProducto(producto.id, data),
+                        icon: const Icon(Icons.edit_rounded),
+                        color: Colors.indigo,
+                      ),
+                      IconButton(
+                        onPressed: () => _eliminarProducto(producto.id),
+                        icon: const Icon(Icons.delete_rounded),
+                        color: Colors.redAccent,
+                      ),
+                    ],
+                  ),
                 ),
               );
-            }
-            
+            },
           );
+
 
         }
       ),

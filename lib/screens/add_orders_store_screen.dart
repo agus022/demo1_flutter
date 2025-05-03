@@ -23,9 +23,6 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
   String? selectedCategoryId;
   List<Map<String, dynamic>> productosSeleccionados = [];
 
-
-
-
   @override
   void initState() {
     super.initState();
@@ -34,15 +31,15 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
     storeFirebase = StoreFirebase();
   }
 
-    Stream<QuerySnapshot>? _getProductsStream() {
-    if (selectedCategoryId == null || selectedCategoryId == 'Todos') {
-      return productStoreFirebase?.selectProducts();
-    } else {
-      return FirebaseFirestore.instance
-          .collection('products')
-          .where('idCategoria', isEqualTo: int.parse(selectedCategoryId!))
-          .snapshots();
-    }
+  Stream<QuerySnapshot>? _getProductsStream() {
+      if (selectedCategoryId == null || selectedCategoryId == 'Todos') {
+    return productStoreFirebase?.selectProducts();
+  } else {
+    return FirebaseFirestore.instance
+        .collection('products')
+        .where('idCategoria', isEqualTo: selectedCategoryId) 
+        .snapshots();
+  }
   }
 
   Future<List<Map<String, dynamic>>?> _getCategories() async {
@@ -52,7 +49,7 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
 
   void _agregarProductoAlPedido(Map<String, dynamic> producto) {
     setState(() {
-      final existing = productosSeleccionados.indexWhere((p) => p['idProducto'] == producto['idProducto']);
+      final existing = productosSeleccionados.indexWhere((p) => p['id'] == producto['id']);
       if (existing != -1) {
         productosSeleccionados[existing]['cantidad'] += 1;
       } else {
@@ -63,7 +60,7 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
 
   void _quitarProductoDelPedido(Map<String, dynamic> producto) {
     setState(() {
-      final existing = productosSeleccionados.indexWhere((p) => p['idProducto'] == producto['idProducto']);
+      final existing = productosSeleccionados.indexWhere((p) => p['id'] == producto['id']);
       if (existing != -1) {
         if (productosSeleccionados[existing]['cantidad'] > 1) {
           productosSeleccionados[existing]['cantidad'] -= 1;
@@ -74,39 +71,36 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
     });
   }
 
-  int _cantidadProducto(int idProducto) {
-    final existing = productosSeleccionados.indexWhere((p) => p['idProducto'] == idProducto);
-    if (existing != -1) {
-      return productosSeleccionados[existing]['cantidad'];
-    }
+  int _cantidadProducto(String idProducto) {
+    final existing = productosSeleccionados.indexWhere((p) => p['id'] == idProducto);
+    if (existing != -1) return productosSeleccionados[existing]['cantidad'];
     return 0;
   }
 
-  void _modalCarrito(){
+  void _modalCarrito() {
     final TextEditingController clienteController = TextEditingController();
-    
+
     showModalBottomSheet(
-      
       context: context,
       isScrollControlled: true,
       backgroundColor: const Color(0xFFF1EFEC),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ), 
-      builder: (context){
+      ),
+      builder: (context) {
         return Padding(
           padding: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,
             left: 16,
             right: 16,
-            top: 24
+            top: 24,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text('Detalles del pedido ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
-              SizedBox(height: 12,),
-               if (productosSeleccionados.isEmpty)
+              const Text('Detalles del pedido', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 12),
+              if (productosSeleccionados.isEmpty)
                 const Text('No has agregado productos.')
               else
                 SizedBox(
@@ -123,41 +117,41 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                     },
                   ),
                 ),
-                SizedBox(height: 12,),
-                TextField(
+              const SizedBox(height: 12),
+              TextField(
                 controller: clienteController,
                 decoration: const InputDecoration(
                   labelText: 'Nombre del cliente',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 12,),
+              const SizedBox(height: 12),
               GestureDetector(
                 onTap: () async {
-                    final picked = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2030),
-                    );
-                    if (picked != null) {
-                      setState(() {
-                        selectedDate = picked;
-                      });
-                    }
-                  },
-                  child: AbsorbPointer(
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText:'Fecha servicio',
-                        border: OutlineInputBorder(),
-                        suffixIcon:Icon(Icons.calendar_today)  
-                      ),
-                      controller: TextEditingController(
-                        text: selectedDate != null ? DateFormat('dd/MM/yyyy').format(selectedDate!):'',
-                      ),
+                  final picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2030),
+                  );
+                  if (picked != null) {
+                    setState(() {
+                      selectedDate = picked;
+                    });
+                  }
+                },
+                child: AbsorbPointer(
+                  child: TextFormField(
+                    decoration: const InputDecoration(
+                      labelText: 'Fecha servicio',
+                      border: OutlineInputBorder(),
+                      suffixIcon: Icon(Icons.calendar_today),
+                    ),
+                    controller: TextEditingController(
+                      text: selectedDate != null ? DateFormat('dd/MM/yyyy').format(selectedDate!) : '',
                     ),
                   ),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -180,7 +174,6 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                         );
                         return;
                       }
-
                       if (productosSeleccionados.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('No hay productos para guardar')),
@@ -188,7 +181,6 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                         return;
                       }
                       await storeFirebase?.addOrder({
-                        
                         'cliente': clienteController.text,
                         'producto': productosSeleccionados,
                         'fechaServicio': Timestamp.fromDate(selectedDate!),
@@ -209,40 +201,35 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 20,)
+              const SizedBox(height: 20),
             ],
           ),
         );
-      }
+      },
     );
-
   }
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Agregar pedido'),
+        title: const Text('Agregar pedido'),
         actions: [
           badges.Badge(
-            badgeContent: Text('${productosSeleccionados.length}',style: TextStyle(fontSize: 10,color: Colors.white),),
-            position: badges.BadgePosition.topEnd(top: 0,end: 3),
+            badgeContent: Text('${productosSeleccionados.length}', style: const TextStyle(fontSize: 10, color: Colors.white)),
+            position: badges.BadgePosition.topEnd(top: 0, end: 3),
             child: IconButton(
-              onPressed: (){
-                _modalCarrito();
-              }, 
-              icon: Icon(Icons.shopping_cart_rounded)
+              onPressed: _modalCarrito,
+              icon: const Icon(Icons.shopping_cart_rounded),
             ),
-          )
+          ),
         ],
       ),
       body: Column(
         children: [
           FutureBuilder<List<Map<String, dynamic>>?>(
-            future: _getCategories(), 
-            builder: (context,snapshot){
+            future: _getCategories(),
+            builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Padding(
                   padding: EdgeInsets.all(16),
@@ -251,37 +238,35 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
               }
 
               final categories = snapshot.data ?? [];
-              
+
               return Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: DropdownButtonFormField<String>(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Filtro por categoria',
                     border: OutlineInputBorder(),
                   ),
                   value: selectedCategoryId ?? 'Todos',
                   items: [
-                    DropdownMenuItem(value: 'Todos',child: Text('Todas las categorias')),
-                    ...categories.map((cat){
-                      return DropdownMenuItem(value: cat['idCategoria'].toString(), child:Text(cat['nombre']) 
-                    );
-                    }).toList()
-                  ], 
-                  onChanged: (value){
+                    const DropdownMenuItem(value: 'Todos', child: Text('Todas las categorias')),
+                    ...categories.map((cat) {
+                      return DropdownMenuItem(value: cat['id'].toString(), child: Text(cat['nombre']));
+                    }).toList(),
+                  ],
+                  onChanged: (value) {
                     setState(() {
                       selectedCategoryId = value;
                     });
-                  }
+                  },
                 ),
               );
-
-            }
+            },
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: _getProductsStream(), 
-              builder: (context,snapshot){
-                 if (snapshot.connectionState == ConnectionState.waiting) {
+              stream: _getProductsStream(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 }
 
@@ -302,36 +287,38 @@ class _AddOrdersStoreScreenState extends State<AddOrdersStoreScreen> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           IconButton(
-                            onPressed: (){
+                            onPressed: () {
                               _quitarProductoDelPedido({
                                 'nombre': producto['nombre'],
                                 'descripcion': producto['descripcion'],
-                                'idProducto': producto['idProducto'],
+                                'id': producto.id,
                               });
-                            }, 
-                            icon: Icon(Icons.remove_circle_outline, color: Colors.red[400],size: 30,)
+                            },
+                            icon: Icon(Icons.remove_circle_outline, color: Colors.red[400], size: 30),
                           ),
-                          Text(_cantidadProducto(producto['idProducto']).toString(),style: const TextStyle(fontWeight: FontWeight.bold),),
-                          SizedBox(width: 12,),
+                          Text(
+                            _cantidadProducto(producto.id).toString(),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(width: 12),
                           IconButton(
-                            onPressed: (){
+                            onPressed: () {
                               _agregarProductoAlPedido({
-                               'nombre': producto['nombre'],
+                                'nombre': producto['nombre'],
                                 'descripcion': producto['descripcion'],
-                                'idProducto': producto['idProducto'],
+                                'id': producto.id,
                               });
-                            }, 
-                            icon: Icon(Icons.add_circle_outline, color: Colors.blue[400],size: 30,)
-                          )
+                            },
+                            icon: Icon(Icons.add_circle_outline, color: Colors.blue[400], size: 30),
+                          ),
                         ],
-                      )
+                      ),
                     );
-
                   },
                 );
-              }
-            )
-          )
+              },
+            ),
+          ),
         ],
       ),
     );

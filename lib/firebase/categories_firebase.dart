@@ -29,7 +29,7 @@ final firebase = FirebaseFirestore.instance;
   final snapshot = await collection!.get();
   return snapshot.docs.map((doc) {
     return {
-      'idCategoria': doc['idCategoria'],
+      'id': doc.id,
       'nombre': doc['nombre'],
     };
   }).toList();
